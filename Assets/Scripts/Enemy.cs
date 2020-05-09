@@ -16,22 +16,22 @@ public class Enemy : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         life = Random.Range(1, 3);
 
-        material.color = new Color(255, 0, 0, 100);
+        material.color = new Color32(255, 0, 0, 100);
 
         switch (life)
         {
             case 1:                
-                material.color = new Color(5, 150, 0, 100);
+                material.color = new Color32(5, 150, 0, 255);
                 velocity += 4f;
                 break;
 
             case 2:                
-                material.color = new Color(50, 130, 0, 100);
+                material.color = new Color32(255, 253, 0, 255);
                 velocity += 2f;
                 break;
 
             case 3:             
-                material.color = new Color(5, 150, 0, 100);
+                material.color = new Color32(255, 36, 0, 255);
                 velocity += 1f;
                 break;
         }
@@ -44,5 +44,18 @@ public class Enemy : MonoBehaviour
             velocity * Time.deltaTime);
 
         transform.LookAt(target.transform.position);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Bullet")
+        {
+            life--;
+        }
+
+        if(life <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

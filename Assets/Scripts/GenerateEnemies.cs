@@ -16,13 +16,14 @@ public class GenerateEnemies : MonoBehaviour
 
     IEnumerator Generate(float time)
     {
+        print("entrei");
+        yield return new WaitForSeconds(time);
         Vector3 p = new Vector3(
             Random.Range(minX, maxX), 
             transform.position.y, 
             Random.Range(minZ, maxZ));
 
         Instantiate(enemyPrefabs, p, transform.rotation);
-
-        yield return new WaitForSeconds(time);
+        StartCoroutine(Generate(Random.Range(minTime, maxTime)));
     }
 }
